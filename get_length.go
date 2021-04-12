@@ -45,9 +45,7 @@ func main() {
 		log.Fatalln("Failed to parse address book:", err)
 	}
 
-	for _, person := range book.People {
-		err = writeOutPerson(person, os.Stdout)
-	}
+	fmt.Printf("[Result] The addressbook file %s contains %d person record(s)\n", fname, len(book.People))
 
 	fmt.Println("Done")
 }

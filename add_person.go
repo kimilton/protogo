@@ -11,6 +11,7 @@ import (
 
 	pb "github.com/seanhamiltonkim/protogo/proto"
 	"google.golang.org/protobuf/proto"
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 func promptForAddress(r io.Reader) (*pb.Person, error) {
@@ -71,6 +72,8 @@ func promptForAddress(r io.Reader) (*pb.Person, error) {
 		p.Phones = append(p.Phones, pn)
 	}
 
+	p.LastUpdated = timestamppb.Now()
+
 	return p, nil
 
 }
@@ -90,9 +93,7 @@ func main() {
 		}
 	}
 
-	// [START marshal_proto]
 	book := &pb.AddressBook{}
-	// [START_EXCLUDE]
 	if err := proto.Unmarshal(in, book); err != nil {
 		log.Fatalln("Failed to parse address book:", err)
 	}
@@ -102,7 +103,6 @@ func main() {
 		log.Fatalln("Error with address:", err)
 	}
 	book.People = append(book.People, addr)
-	// [END_EXCLUDE]
 
 	out, err := proto.Marshal(book)
 	if err != nil {
@@ -111,5 +111,4 @@ func main() {
 	if err := ioutil.WriteFile(fname, out, 0644); err != nil {
 		log.Fatalln("Failed to write address book:", err)
 	}
-	// [END marshal_proto]
 }
