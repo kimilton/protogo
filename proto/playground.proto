@@ -3,7 +3,7 @@ package playground;
 
 import "google/protobuf/timestamp.proto";
 
-option go_package = "github.com/seanhamiltonkim/protogo/playground";
+option go_package = "github.com/kilimton/protogo/playground";
 
 message Person {
   string name = 1;
